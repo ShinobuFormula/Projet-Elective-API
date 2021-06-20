@@ -7,6 +7,14 @@ var articleSchema = new mongoose_1.Schema({
     monnaie: String
 });
 var articleModel = mongoose_1.model('Article', articleSchema);
+exports.getAllArticles = function () {
+    return articleModel.find(function (err, articles) {
+        if (err)
+            return err;
+        else
+            return articles;
+    });
+};
 exports.createArticle = function (articleData) {
     var article = new articleModel(articleData);
     return article.save();

@@ -26,7 +26,7 @@ router.post('/connect', function (req, res)
     //User.connectUser(req.body)
 
     res.writeHead(200, {
-        "Set-Cookie": "token=" + jwt.sign({uid: '15', role: '1'}, 'your-256-bit-secret', { expiresIn: '1h' }) + "; HttpOnly",
+        "Set-Cookie": "token=" + jwt.sign({uid: '16', role: '2'}, 'your-256-bit-secret', { expiresIn: '1h' }) + "; HttpOnly",
         "Access-Control-Allow-Credentials" : "true"
     }).send()
 })

@@ -8,12 +8,14 @@ var orderSchema = new mongoose_1.Schema({
 });
 var orderModel = mongoose_1.model('Order', orderSchema);
 exports.getAllOrder = function () {
+    var response;
     orderModel.find(function (err, order) {
         if (err)
-            return err;
+            response = err;
         else
-            return order;
+            response = order;
     });
+    return response;
 };
 exports.createOrder = function (orderData) {
     var order = new orderModel(orderData);

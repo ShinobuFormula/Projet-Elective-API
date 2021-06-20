@@ -1,21 +1,27 @@
 const jwt = require("jsonwebtoken");
 
 exports.verifyToken = (cookie, role) => {
+    let response;
     if(cookie.token)
     {
         jwt.verify(cookie.token, 'your-256-bit-secret', function(err, decoded) {
             if(err) {
-                return false
+                response = false
             }
-            else if (decoded.role === role) {
-                return true
+            else if (parseInt(decoded.role) === role) {
+                response = true
             }
             else {
-                return false;
+                response = false
             }
         });
     }
     else {
-        return false
+        response = false
     }
+    return response;
+}
+
+exports.createToken = () => {
+
 }

@@ -14,6 +14,13 @@ const articleSchema = new Schema<Article>({
 
 const articleModel = model('Article', articleSchema)
 
+exports.getAllArticles = () => {
+    return articleModel.find( (err, articles) => {
+        if (err) return err
+        else return articles
+    })
+}
+
 exports.createArticle = (articleData:JSON) => {
     const article = new articleModel(articleData);
     return article.save();

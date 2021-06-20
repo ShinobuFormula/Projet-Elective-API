@@ -12,6 +12,7 @@ router.get('/', function (req, res)
 
     }) */
 
+    console.log(Order.getAllOrder())
     res.json(Order.getAllOrder())
 
 })
@@ -25,7 +26,7 @@ router.post('/', function (req, res)
 
 router.delete('/:id', function (req, res)
 {
-    //Order.deleteOrder(req.params.id)
+    Order.deleteOrder(req.params.id)
 
     res.status(201).send('you deleted an article')
 })

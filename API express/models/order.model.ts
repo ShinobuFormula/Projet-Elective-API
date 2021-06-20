@@ -15,10 +15,12 @@ const orderSchema = new Schema<OrderModel>({
 const orderModel = model('Order', orderSchema)
 
 exports.getAllOrder = () => {
+    let response: any
     orderModel.find( (err, order) => {
-        if(err) return err
-        else return order
+        if(err) response = err
+        else response = order
     })
+    return response
 }
 
 exports.createOrder = (orderData:JSON) => {
