@@ -1,4 +1,5 @@
 import {Schema, model} from 'mongoose';
+import articleModel from "./article.model";
 
 interface OrderModel {
     uid: number,
@@ -14,13 +15,14 @@ const orderSchema = new Schema<OrderModel>({
 
 const orderModel = model('Order', orderSchema)
 
-exports.getAllOrder = () => {
-    let response: any
-    orderModel.find( (err, order) => {
-        if(err) response = err
-        else response = order
-    })
-    return response
+exports.getAllOrders = async () => {
+    const orders = await orderModel.find();
+    return orders;
+}
+
+exports.getOneOrder = async (req:any) => {
+    const order = await orderModel.findOne( {_id: req.params.id}, 'content uid price')
+    return order
 }
 
 exports.createOrder = (orderData:JSON) => {

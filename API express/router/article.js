@@ -5,13 +5,17 @@ const db = require("../db");
 
 router.get('/', function (req, res)
 {
-    /*Article.default.find( (err, articles) =>
-    {
-        if (err) return handleError(err);
-        res.json(articles)
 
-    })*/
-    res.json(Article.getAllArticles())
+    Article.getAllArticles().then((articles) => {
+        res.json(articles)
+    })
+})
+
+router.get('/:id', function (req, res)
+{
+    Article.getOneArticle(req).then((article) => {
+        res.json(article)
+    })
 })
 
 router.post('/', function (req, res)

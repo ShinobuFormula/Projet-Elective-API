@@ -6,19 +6,14 @@ const db = require("../db");
 
 router.get('/', function (req, res)
 {
-    Menu.default.find( (err, menus) =>
-    {
-        if (err) return handleError(err);
+    Menu.getAllMenus().then( (menus) => {
         res.json(menus)
     })
 })
 
-router.get('/:name', function (req, res)
+router.get('/:id', function (req, res)
 {
-    Menu.default.findOne({'name': req.params.name}, 'prix monnaie', (err, menu) =>
-    {
-        if (err) return handleError(err);
-
+    Menu.getOneMenu(req).then( (menu) => {
         res.json(menu)
     })
 })

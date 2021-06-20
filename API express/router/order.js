@@ -5,16 +5,16 @@ const db = require("../db");
 
 router.get('/', function (req, res)
 {
-    /*Order.default.find( (err, articles) =>
-    {
-        if (err) return handleError(err);
-        res.json(articles)
+    Order.getAllOrders().then( (orders) => {
+        res.json(orders)
+    })
+})
 
-    }) */
-
-    console.log(Order.getAllOrder())
-    res.json(Order.getAllOrder())
-
+router.get('/:id', function (req, res)
+{
+    Order.getOneOrder(req).then((order) => {
+        res.json(order)
+    })
 })
 
 router.post('/', function (req, res)
