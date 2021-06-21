@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Article = require("../models/article.model");
+const TokenController = require("../controller/token-verifier")
 const db = require("../db");
 
 router.get('/', function (req, res)
@@ -23,6 +24,18 @@ router.post('/', function (req, res)
     Article.createArticle(req.body)
 
     res.status(201).send('you added a new article')
+})
+
+router.put('/:id', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 2)){
+        Article.updateOneArticle(req)
+
+        res.status(201).send('you updated an article')
+    }
+    else{
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
 })
 
 router.delete('/:id', function (req, res)

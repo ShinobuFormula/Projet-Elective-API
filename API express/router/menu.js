@@ -30,6 +30,18 @@ router.post('/', function (req, res)
     }
 })
 
+router.put('/:id', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 2)){
+        Menu.updateOneMenu(req)
+
+        res.status(201).send('you updated a menu')
+    }
+    else{
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
+})
+
 router.delete('/:id', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 2)) {

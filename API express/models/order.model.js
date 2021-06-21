@@ -38,9 +38,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var orderSchema = new mongoose_1.Schema({
-    uid: Number,
-    price: Number,
-    content: Array
+    cid: {
+        type: Number,
+        required: true
+    },
+    did: {
+        type: Number,
+        required: true
+    },
+    delivered: {
+        type: Boolean,
+        required: true
+    },
+    content: {
+        type: Array,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    date: {
+        type: Date
+    }
 });
 var orderModel = mongoose_1.model('Order', orderSchema);
 exports.getAllOrders = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -69,6 +89,20 @@ exports.createOrder = function (orderData) {
     var order = new orderModel(orderData);
     return order.save();
 };
+exports.updateOneOrder = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.findOneAndUpdate({ _id: req.params.id }, req.body, {
+                    "new": true
+                })];
+            case 1:
+                order = _a.sent();
+                order.save();
+                return [2 /*return*/];
+        }
+    });
+}); };
 exports.AcceptOrder = function (orderID, UID) {
     orderModel.updateOne({ _id: orderID }, { deliveredBy: UID });
 };

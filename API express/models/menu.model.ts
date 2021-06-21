@@ -1,16 +1,29 @@
 import {Schema, model} from 'mongoose';
-import articleModel from "./article.model";
 
 interface Menu {
     name: string,
-    prix: number,
-    monnaie: string
+    rid: number,
+    content: string[]
+    price: number
 }
 
 const menuSchema = new Schema<Menu>({
-    name: String,
-    prix: Number,
-    monnaie: String
+    name: {
+        type :String,
+        required: true
+    },
+    rid: {
+        type : Number,
+        required: true
+    },
+    content:{
+        type :Array,
+        required: true
+    },
+    price:{
+        type :Number,
+        required: true
+    },
 })
 
 const menuModel = model('Menu', menuSchema)
@@ -21,19 +34,24 @@ exports.getAllMenus = async () => {
 }
 
 exports.getOneMenu = async (req:any) => {
-    const menu = await menuModel.findOne( {_id: req.params.id}, 'name prix monnaie')
+    const menu = await menuModel.findOne( {_id: req.params.id})
     return menu
 }
 
 exports.createMenu = (menuData:JSON) => {
     const menu = new menuModel(menuData);
-    return menu.save();
+    return menu.save()
 };
 
+exports.updateOneMenu = async (req:any) => {
+    const menu = await menuModel.findOneAndUpdate({_id: req.params.id}, req.body, {
+        new: true
+    });
+    menu.save();
+}
+
 exports.deleteMenu = (menuID:any) => {
-    menuModel.deleteOne({_id:menuID}, function (err){
-        if (err) return console.log(err)
-    })
+    menuModel.deleteOne({_id:menuID})
 };
 
 export default menuModel;

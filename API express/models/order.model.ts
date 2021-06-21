@@ -1,16 +1,38 @@
 import {Schema, model} from 'mongoose';
-import articleModel from "./article.model";
 
 interface OrderModel {
-    uid: number,
+    cid: number,
+    did: number
+    delivered : boolean,
+    content: string[],
     price: number,
-    content: string[]
+    date: Date
 }
 
 const orderSchema = new Schema<OrderModel>({
-    uid: Number,
-    price: Number,
-    content: Array
+    cid: {
+        type :Number,
+        required: true
+    },
+    did: {
+        type :Number,
+        required: true
+    },
+    delivered: {
+        type :Boolean,
+        required: true
+    },
+    content: {
+        type :Array,
+        required: true
+    },
+    price: {
+        type :Number,
+        required: true
+    },
+    date: {
+        type: Date
+    }
 })
 
 const orderModel = model('Order', orderSchema)
@@ -29,6 +51,13 @@ exports.createOrder = (orderData:JSON) => {
     const order = new orderModel(orderData);
     return order.save();
 };
+
+exports.updateOneOrder = async (req:any) => {
+    const order = await orderModel.findOneAndUpdate({_id: req.params.id}, req.body, {
+        new: true
+    });
+    order.save();
+}
 
 exports.AcceptOrder = (orderID:any, UID: any) => {
     orderModel.updateOne({_id:orderID}, { deliveredBy: UID });

@@ -1,16 +1,29 @@
 import {model, Schema} from 'mongoose';
-import menuModel from "./menu.model";
 
 interface Article {
     name: string,
-    prix: number,
-    monnaie: string
+    rid: number,
+    type: number,
+    price: number
 }
 
 const articleSchema = new Schema<Article>({
-    name: String,
-    prix: Number,
-    monnaie: String
+    name: {
+        type :String,
+        required: true
+    },
+    rid: {
+        type :Number,
+        required: true
+    },
+    type: {
+        type :Number,
+        required: true
+    },
+    price: {
+        type :Number,
+        required: true
+    },
 })
 
 const articleModel = model('Article', articleSchema)
@@ -29,6 +42,13 @@ exports.createArticle = (articleData:JSON) => {
     const article = new articleModel(articleData);
     return article.save();
 };
+
+exports.updateOneArticle = async (req:any) => {
+    const article = await articleModel.findOneAndUpdate({_id: req.params.id}, req.body, {
+        new: true
+    });
+    article.save();
+}
 
 exports.deleteArticle = (articleID:any) => {
     articleModel.deleteOne({_id:articleID}, function (err){

@@ -38,9 +38,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var menuSchema = new mongoose_1.Schema({
-    name: String,
-    prix: Number,
-    monnaie: String
+    name: {
+        type: String,
+        required: true
+    },
+    rid: {
+        type: Number,
+        required: true
+    },
+    content: {
+        type: Array,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    }
 });
 var menuModel = mongoose_1.model('Menu', menuSchema);
 exports.getAllMenus = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -58,7 +71,7 @@ exports.getOneMenu = function (req) { return __awaiter(void 0, void 0, void 0, f
     var menu;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, menuModel.findOne({ _id: req.params.id }, 'name prix monnaie')];
+            case 0: return [4 /*yield*/, menuModel.findOne({ _id: req.params.id })];
             case 1:
                 menu = _a.sent();
                 return [2 /*return*/, menu];
@@ -69,10 +82,21 @@ exports.createMenu = function (menuData) {
     var menu = new menuModel(menuData);
     return menu.save();
 };
-exports.deleteMenu = function (menuID) {
-    menuModel.deleteOne({ _id: menuID }, function (err) {
-        if (err)
-            return console.log(err);
+exports.updateOneMenu = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+    var menu;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, menuModel.findOneAndUpdate({ _id: req.params.id }, req.body, {
+                    "new": true
+                })];
+            case 1:
+                menu = _a.sent();
+                menu.save();
+                return [2 /*return*/];
+        }
     });
+}); };
+exports.deleteMenu = function (menuID) {
+    menuModel.deleteOne({ _id: menuID });
 };
 exports["default"] = menuModel;
