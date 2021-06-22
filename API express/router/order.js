@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Order = require("../models/order.model");
 const TokenController = require("../controller/token-verifier")
-const db = require("../db");
 
 router.get('/', function (req, res)
 {

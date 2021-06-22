@@ -1,34 +1,40 @@
 const express = require('express')
 const router = express.Router()
-//const User = require("../models/user.model");
-const db = require("../db");
 const jwt = require("jsonwebtoken");
+const UserController = require("../controller/user.controller")
 
-
-router.get('/', function (req, res)
+router.get('/:type/:id', function (req, res)
 {
-    /*User.default.find( (err, articles) =>
-    {
-        if (err) return handleError(err);
-        res.json(articles)
-    }) */
+    UserController.getUser(req.params.id, req.params.type).then( (userData) => {
+        res.json(userData)
+    })
 })
 
-router.post('/create', function (req, res)
+router.get('/:type', function (req, res)
 {
-    //User.createUser(req.body)
+    UserController.getAllUserByType(req.params.type).then( (usersData) => {
+        res.json(usersData)
+    })
+})
+
+
+router.post('/create/:type', function (req, res)
+{
+    UserController.createUser(req.body, req.params.type)
 
     res.status(201).send('you added a new user')
 })
 
-router.post('/connect', function (req, res)
+router.post('/login/:type', function (req, res)
 {
-    //User.connectUser(req.body)
+    UserController.loginUser(req.body, req.params.type).then( (userData) => {
+        res.json(userData)
+    })
 
-    res.writeHead(200, {
+  /*  res.writeHead(200, {
         "Set-Cookie": "token=" + jwt.sign({uid: '16', role: '2'}, 'your-256-bit-secret', { expiresIn: '1h' }) + "; HttpOnly",
         "Access-Control-Allow-Credentials" : "true"
-    }).send()
+    }).send() */
 })
 
 router.get('/privateInfo', function (req, res)
