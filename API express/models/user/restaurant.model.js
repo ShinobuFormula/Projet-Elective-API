@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var _a = require('sequelize'), Model = _a.Model, DataTypes = _a.DataTypes;
 var mysql_db_1 = require("../../mysql.db");
-var Customer = mysql_db_1["default"].define('Customer', {
+var Restaurant = mysql_db_1["default"].define('Restaurant', {
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -47,12 +47,9 @@ var Customer = mysql_db_1["default"].define('Customer', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    firstname: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    lastname: {
-        type: DataTypes.STRING
     },
     address: {
         type: DataTypes.STRING,
@@ -60,45 +57,45 @@ var Customer = mysql_db_1["default"].define('Customer', {
     }
 }, {
     sequelize: mysql_db_1["default"],
-    modelName: 'Customer',
-    tableName: 'customer',
+    modelName: 'Restaurant',
+    tableName: 'restaurant',
     timestamps: false
 });
-exports.getAllCustomer = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var customers;
+exports.getAllRestaurant = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurants;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll()];
+            case 0: return [4 /*yield*/, Restaurant.findAll()];
             case 1:
-                customers = _a.sent();
-                return [2 /*return*/, customers];
+                restaurants = _a.sent();
+                return [2 /*return*/, restaurants];
         }
     });
 }); };
-exports.getCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.getRestaurant = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Restaurant.findAll({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                restaurant = _a.sent();
+                return [2 /*return*/, restaurant];
         }
     });
 }); };
-exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer, response;
+exports.createRestaurant = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.create(body)];
+            case 0: return [4 /*yield*/, Restaurant.create(body)];
             case 1:
-                customer = _a.sent();
-                return [4 /*yield*/, customer.save()
-                    //return customers
+                restaurant = _a.sent();
+                return [4 /*yield*/, restaurant.save()
+                    //return restaurants
                 ];
             case 2:
                 response = _a.sent();
@@ -106,26 +103,26 @@ exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.deleteCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.deleteRestaurant = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.destroy({
+            case 0: return [4 /*yield*/, Restaurant.destroy({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                restaurant = _a.sent();
+                return [2 /*return*/, restaurant];
         }
     });
 }); };
-exports.loginCustomer = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.loginRestaurant = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Restaurant.findAll({
                     where: {
                         email: email,
                         password: password
@@ -133,8 +130,8 @@ exports.loginCustomer = function (email, password) { return __awaiter(void 0, vo
                     attributes: { exclude: ['password'] }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                restaurant = _a.sent();
+                return [2 /*return*/, restaurant];
         }
     });
 }); };

@@ -1,4 +1,9 @@
 const Customer = require("../models/user/Customer.model");
+const Restaurant = require("../models/user/Restaurant.model");
+const Deliveryman = require("../models/user/Deliveryman.model");
+const Salesperson = require("../models/user/Salesperson.model");
+const Developer = require("../models/user/Developer.model");
+const TokenController = require("../controller/token-verifier")
 
 exports.createUser = (body, typeOfUser) => {
     switch (parseInt(typeOfUser)){
@@ -16,6 +21,26 @@ exports.createUser = (body, typeOfUser) => {
             break;
         case 5:
             Developer.createDeveloper(body)
+            break;
+    }
+}
+
+exports.deleteUser = (uid, typeOfUser) => {
+    switch (parseInt(typeOfUser)){
+        case 1:
+            Customer.deleteCustomer(uid)
+            break;
+        case 2:
+            Restaurant.deleteRestaurant(uid)
+            break;
+        case 3:
+            Deliveryman.deleteDeliveryman(uid)
+            break;
+        case 4:
+            Salesperson.deleteSalesperson(uid)
+            break;
+        case 5:
+            Developer.deleteDeveloper(uid)
             break;
     }
 }
@@ -65,23 +90,23 @@ exports.getAllUserByType = async (typeOfUser) => {
 }
 
 exports.loginUser = async (body, typeOfUser) => {
-    let usersData
+    let userData
     switch (parseInt(typeOfUser)){
         case 1:
-            usersData = await Customer.loginCustomer(body.email, body.password)
+            userData = await Customer.loginCustomer(body.email, body.password)
             break;
         case 2:
-            usersData = await Restaurant.loginRestaurant(body.email, body.password)
+            userData = await Restaurant.loginRestaurant(body.email, body.password)
             break;
         case 3:
-            usersData = await Deliveryman.loginDeliveryman(body.email, body.password)
+            userData = await Deliveryman.loginDeliveryman(body.email, body.password)
             break;
         case 4:
-            usersData = await Salesperson.loginSalesperson(body.email, body.password)
+            userData = await Salesperson.loginSalesperson(body.email, body.password)
             break;
         case 5:
-            usersData = await Developer.loginDeveloper(body.email, body.password)
+            userData = await Developer.loginDeveloper(body.email, body.password)
             break;
     }
-    return usersData
+    return TokenController.createToken(userData[0].dataValues.id, typeOfUser)
 }

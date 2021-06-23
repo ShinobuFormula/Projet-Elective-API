@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var _a = require('sequelize'), Model = _a.Model, DataTypes = _a.DataTypes;
 var mysql_db_1 = require("../../mysql.db");
-var Customer = mysql_db_1["default"].define('Customer', {
+var Developer = mysql_db_1["default"].define('Developer', {
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -53,52 +53,48 @@ var Customer = mysql_db_1["default"].define('Customer', {
     },
     lastname: {
         type: DataTypes.STRING
-    },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: false
     }
 }, {
     sequelize: mysql_db_1["default"],
-    modelName: 'Customer',
-    tableName: 'customer',
+    modelName: 'Developer',
+    tableName: 'developer',
     timestamps: false
 });
-exports.getAllCustomer = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var customers;
+exports.getAllDeveloper = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var developers;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll()];
+            case 0: return [4 /*yield*/, Developer.findAll()];
             case 1:
-                customers = _a.sent();
-                return [2 /*return*/, customers];
+                developers = _a.sent();
+                return [2 /*return*/, developers];
         }
     });
 }); };
-exports.getCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.getDeveloper = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var developer;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Developer.findAll({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                developer = _a.sent();
+                return [2 /*return*/, developer];
         }
     });
 }); };
-exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer, response;
+exports.createDeveloper = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var developer, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.create(body)];
+            case 0: return [4 /*yield*/, Developer.create(body)];
             case 1:
-                customer = _a.sent();
-                return [4 /*yield*/, customer.save()
-                    //return customers
+                developer = _a.sent();
+                return [4 /*yield*/, developer.save()
+                    //return developers
                 ];
             case 2:
                 response = _a.sent();
@@ -106,26 +102,26 @@ exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.deleteCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.deleteDeveloper = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var developer;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.destroy({
+            case 0: return [4 /*yield*/, Developer.destroy({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                developer = _a.sent();
+                return [2 /*return*/, developer];
         }
     });
 }); };
-exports.loginCustomer = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.loginDeveloper = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var developer;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Developer.findAll({
                     where: {
                         email: email,
                         password: password
@@ -133,8 +129,8 @@ exports.loginCustomer = function (email, password) { return __awaiter(void 0, vo
                     attributes: { exclude: ['password'] }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                developer = _a.sent();
+                return [2 /*return*/, developer];
         }
     });
 }); };

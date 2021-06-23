@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var _a = require('sequelize'), Model = _a.Model, DataTypes = _a.DataTypes;
 var mysql_db_1 = require("../../mysql.db");
-var Customer = mysql_db_1["default"].define('Customer', {
+var Salesperson = mysql_db_1["default"].define('Salesperson', {
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -53,52 +53,48 @@ var Customer = mysql_db_1["default"].define('Customer', {
     },
     lastname: {
         type: DataTypes.STRING
-    },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: false
     }
 }, {
     sequelize: mysql_db_1["default"],
-    modelName: 'Customer',
-    tableName: 'customer',
+    modelName: 'Salesperson',
+    tableName: 'salesperson',
     timestamps: false
 });
-exports.getAllCustomer = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var customers;
+exports.getAllSalesperson = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var salespersons;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll()];
+            case 0: return [4 /*yield*/, Salesperson.findAll()];
             case 1:
-                customers = _a.sent();
-                return [2 /*return*/, customers];
+                salespersons = _a.sent();
+                return [2 /*return*/, salespersons];
         }
     });
 }); };
-exports.getCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.getSalesperson = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var salesperson;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Salesperson.findAll({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                salesperson = _a.sent();
+                return [2 /*return*/, salesperson];
         }
     });
 }); };
-exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer, response;
+exports.createSalesperson = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var salesperson, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.create(body)];
+            case 0: return [4 /*yield*/, Salesperson.create(body)];
             case 1:
-                customer = _a.sent();
-                return [4 /*yield*/, customer.save()
-                    //return customers
+                salesperson = _a.sent();
+                return [4 /*yield*/, salesperson.save()
+                    //return salespersons
                 ];
             case 2:
                 response = _a.sent();
@@ -106,26 +102,26 @@ exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.deleteCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.deleteSalesperson = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var salesperson;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.destroy({
+            case 0: return [4 /*yield*/, Salesperson.destroy({
                     where: {
                         id: uid
                     }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                salesperson = _a.sent();
+                return [2 /*return*/, salesperson];
         }
     });
 }); };
-exports.loginCustomer = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var customer;
+exports.loginSalesperson = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var salesperson;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Customer.findAll({
+            case 0: return [4 /*yield*/, Salesperson.findAll({
                     where: {
                         email: email,
                         password: password
@@ -133,8 +129,8 @@ exports.loginCustomer = function (email, password) { return __awaiter(void 0, vo
                     attributes: { exclude: ['password'] }
                 })];
             case 1:
-                customer = _a.sent();
-                return [2 /*return*/, customer];
+                salesperson = _a.sent();
+                return [2 /*return*/, salesperson];
         }
     });
 }); };

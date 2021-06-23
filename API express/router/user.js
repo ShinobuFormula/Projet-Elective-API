@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const jwt = require("jsonwebtoken");
 const UserController = require("../controller/user.controller")
+const TokenController = require("../controller/token-verifier")
 
 router.get('/:type/:id', function (req, res)
 {
@@ -17,6 +17,18 @@ router.get('/:type', function (req, res)
     })
 })
 
+router.patch('/verify', function (req, res)
+{
+    const verifiedData = TokenController.verifyTokenLogin(req.cookies)
+    if(verifiedData.response)
+    {
+        res.json(verifiedData.userData)
+    }
+    else {
+        res.status(401).send("Invalid Token")
+    }
+
+})
 
 router.post('/create/:type', function (req, res)
 {
@@ -27,26 +39,17 @@ router.post('/create/:type', function (req, res)
 
 router.post('/login/:type', function (req, res)
 {
-    UserController.loginUser(req.body, req.params.type).then( (userData) => {
-        res.json(userData)
+    UserController.loginUser(req.body, req.params.type).then( (token) => {
+        res.writeHead(200, {
+            "Set-Cookie": "token=" + token + "; HttpOnly",
+            "Access-Control-Allow-Credentials" : "true"
+        }).send()
     })
-
-  /*  res.writeHead(200, {
-        "Set-Cookie": "token=" + jwt.sign({uid: '16', role: '2'}, 'your-256-bit-secret', { expiresIn: '1h' }) + "; HttpOnly",
-        "Access-Control-Allow-Credentials" : "true"
-    }).send() */
 })
 
-router.get('/privateInfo', function (req, res)
+router.delete('/:type/:id', function (req, res)
 {
-
-
-    res.send("ok")
-})
-
-router.delete('/:id', function (req, res)
-{
- //   User.deleteUser(req.params.id)
+    UserController.deleteUser(req.params.id, req.params.type)
 
     res.status(200).send('you deleted a user')
 })

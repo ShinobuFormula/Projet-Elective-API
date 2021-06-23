@@ -31,8 +31,16 @@ const Customer = sequelize.define('Customer', {
 
 exports.getAllCustomer = async () => {
     const customers = await Customer.findAll();
-    console.log(customers)
     return customers
+}
+
+exports.getCustomer = async (uid:number) => {
+    const customer = await Customer.findAll({
+        where: {
+            id: uid
+        }
+    });
+    return customer
 }
 
 exports.createCustomer = async (body:JSON) => {
@@ -41,8 +49,8 @@ exports.createCustomer = async (body:JSON) => {
     //return customers
 }
 
-exports.getCustomer = async (uid:number) => {
-    const customer = await Customer.findAll({
+exports.deleteCustomer = async (uid:number) => {
+    const customer = await Customer.destroy({
         where: {
             id: uid
         }
