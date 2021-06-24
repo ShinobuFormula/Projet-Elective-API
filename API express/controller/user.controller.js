@@ -110,3 +110,31 @@ exports.loginUser = async (body, typeOfUser) => {
     }
     return TokenController.createToken(userData[0].dataValues.id, typeOfUser)
 }
+
+exports.getAllUser = async () => {
+    let usersData = []
+    let temp
+
+    temp = await Customer.getAllCustomer()
+    temp.forEach(elem => {
+        usersData.push(elem)
+    })
+    temp = await Restaurant.getAllRestaurant()
+    temp.forEach(elem => {
+        usersData.push(elem)
+    })
+    temp = await Deliveryman.getAllDeliveryman()
+    temp.forEach(elem => {
+        usersData.push(elem)
+    })
+    temp = await Salesperson.getAllSalesperson()
+    temp.forEach(elem => {
+        usersData.push(elem)
+    })
+    temp = await Developer.getAllDeveloper()
+    temp.forEach(elem => {
+        usersData.push(elem)
+    })
+
+    return usersData
+}

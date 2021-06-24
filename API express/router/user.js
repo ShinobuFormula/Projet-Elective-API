@@ -3,9 +3,10 @@ const router = express.Router()
 const UserController = require("../controller/user.controller")
 const TokenController = require("../controller/token-verifier")
 
-router.get('/:type/:id', function (req, res)
+
+router.get('/', function (req, res)
 {
-    UserController.getUser(req.params.id, req.params.type).then( (userData) => {
+    UserController.getAllUser().then( (userData) => {
         res.json(userData)
     })
 })
@@ -17,7 +18,14 @@ router.get('/:type', function (req, res)
     })
 })
 
-router.patch('/verify', function (req, res)
+router.get('/:type/:id', function (req, res)
+{
+    UserController.getUser(req.params.id, req.params.type).then( (userData) => {
+        res.json(userData)
+    })
+})
+
+router.post('/verify', function (req, res)
 {
     const verifiedData = TokenController.verifyTokenLogin(req.cookies)
     if(verifiedData.response)

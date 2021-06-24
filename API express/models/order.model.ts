@@ -59,8 +59,18 @@ exports.updateOneOrder = async (req:any) => {
     order.save();
 }
 
-exports.AcceptOrder = (orderID:any, UID: any) => {
-    orderModel.updateOne({_id:orderID}, { deliveredBy: UID });
+exports.acceptOrder = async (orderID:any, UID: any) => {
+    const order = await orderModel.findOneAndUpdate({_id: orderID}, {did: UID}, {
+        new: true
+    });
+    order.save();
+}
+
+exports.deliverOrder = async (orderID:any) => {
+    const order = await orderModel.findOneAndUpdate({_id: orderID}, {delivered: true}, {
+        new: true
+    });
+    order.save();
 }
 
 exports.deleteOrder = (orderID:any) => {

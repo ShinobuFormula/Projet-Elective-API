@@ -17,19 +17,43 @@ router.get('/:id', function (req, res)
     })
 })
 
+router.get('/deliver/:orderID', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 3)) {
+        Order.deliverOrder(req.params.orderID)
+    }
+    else{
+        res.status(201).send('you delivered a new order')
+    }
+})
+
+router.get('/accept/:id/:userID', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 3)) {
+        Order.acceptOrder(req.params.id, req.params.userID)
+    }
+    else{
+        res.status(201).send('you accepted a new order')
+    }
+})
+
 router.post('/', function (req, res)
 {
-    Order.createOrder(req.body)
-
-    res.status(201).send('you added a new article')
+    if(TokenController.verifyToken(req.cookies, 1)) {
+        Order.createOrder(req.body)
+    }
+    else
+    {
+        res.status(201).send('you added a new order')
+    }
 })
 
 router.put('/:id', function (req, res)
 {
-    if(TokenController.verifyToken(req.cookies, 2)){
+    if(TokenController.verifyToken(req.cookies, 1)){
         Order.updateOneOrder(req)
 
-        res.status(201).send('you updated an article')
+        res.status(201).send('you updated an order')
     }
     else{
         res.status(403).send('Token invalid or Unauthorized call')
@@ -38,9 +62,12 @@ router.put('/:id', function (req, res)
 
 router.delete('/:id', function (req, res)
 {
-    Order.deleteOrder(req.params.id)
-
-    res.status(201).send('you deleted an article')
+    if(TokenController.verifyToken(req.cookies, 1)) {
+        Order.deleteOrder(req.params.id)
+    }
+    else{
+        res.status(201).send('you deleted an order')
+    }
 })
 
 module.exports = router;

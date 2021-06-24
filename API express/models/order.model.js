@@ -103,9 +103,34 @@ exports.updateOneOrder = function (req) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
-exports.AcceptOrder = function (orderID, UID) {
-    orderModel.updateOne({ _id: orderID }, { deliveredBy: UID });
-};
+exports.acceptOrder = function (orderID, UID) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.findOneAndUpdate({ _id: orderID }, { did: UID }, {
+                    "new": true
+                })];
+            case 1:
+                order = _a.sent();
+                order.save();
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.deliverOrder = function (orderID) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.findOneAndUpdate({ _id: orderID }, { delivered: true }, {
+                    "new": true
+                })];
+            case 1:
+                order = _a.sent();
+                order.save();
+                return [2 /*return*/];
+        }
+    });
+}); };
 exports.deleteOrder = function (orderID) {
     orderModel.deleteOne({ _id: orderID }, function (err) {
         if (err)

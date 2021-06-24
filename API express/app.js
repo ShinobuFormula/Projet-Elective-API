@@ -12,7 +12,10 @@ const db = require('./mongo.db')
 
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+        credentials: true
+    }
+));
 
 app.use('/menu', menu)
 app.use('/article', article)

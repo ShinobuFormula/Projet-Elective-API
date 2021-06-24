@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
 exports.verifyToken = (cookie, role) => {
     let response;
     if(cookie.token)
     {
-        jwt.verify(cookie.token, 'your-256-bit-secret', function(err, decoded) {
+        jwt.verify(cookie.token, process.env.JWT_KEY, function(err, decoded) {
             if(err) {
                 response = false
             }
@@ -27,7 +28,7 @@ exports.verifyTokenLogin = (cookie) => {
     let userData = {};
     if(cookie.token)
     {
-        jwt.verify(cookie.token, 'your-256-bit-secret', function(err, decoded) {
+        jwt.verify(cookie.token, process.env.JWT_KEY, function(err, decoded) {
             if(err){
                 response = false
             }
@@ -47,5 +48,5 @@ exports.verifyTokenLogin = (cookie) => {
 }
 
 exports.createToken = (uid, role) => {
-    return jwt.sign({uid: uid, role: role}, 'your-256-bit-secret', { expiresIn: '24h' })
+    return jwt.sign({uid: uid, role: role}, process.env.JWT_KEY, { expiresIn: '24h' })
 }
