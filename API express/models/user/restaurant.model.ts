@@ -35,7 +35,8 @@ exports.getRestaurant = async (uid:number) => {
     const restaurant = await Restaurant.findAll({
         where: {
             id: uid
-        }
+        },
+        attributes: { exclude: ['password'] }
     });
     return restaurant
 }

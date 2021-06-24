@@ -34,7 +34,8 @@ exports.getDeveloper = async (uid:number) => {
     const developer = await Developer.findAll({
         where: {
             id: uid
-        }
+        },
+        attributes: { exclude: ['password'] }
     });
     return developer
 }

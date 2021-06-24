@@ -58,7 +58,11 @@ var orderSchema = new mongoose_1.Schema({
         type: Number,
         required: true
     },
-    date: {
+    orderedAt: {
+        type: Date,
+        "default": Date.now()
+    },
+    deliveredAt: {
         type: Date
     }
 });
@@ -68,6 +72,17 @@ exports.getAllOrders = function () { return __awaiter(void 0, void 0, void 0, fu
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, orderModel.find()];
+            case 1:
+                orders = _a.sent();
+                return [2 /*return*/, orders];
+        }
+    });
+}); };
+exports.getAllOrdersbyCustomer = function (cid) { return __awaiter(void 0, void 0, void 0, function () {
+    var orders;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.find({ cid: cid })];
             case 1:
                 orders = _a.sent();
                 return [2 /*return*/, orders];
@@ -86,6 +101,8 @@ exports.getOneOrder = function (req) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 exports.createOrder = function (orderData) {
+    orderData['orderedAt'] = Date.now();
+    orderData['deliveredAt'] = null;
     var order = new orderModel(orderData);
     return order.save();
 };
@@ -121,7 +138,7 @@ exports.deliverOrder = function (orderID) { return __awaiter(void 0, void 0, voi
     var order;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, orderModel.findOneAndUpdate({ _id: orderID }, { delivered: true }, {
+            case 0: return [4 /*yield*/, orderModel.findOneAndUpdate({ _id: orderID }, { delivered: true, deliveredAt: Date.now() }, {
                     "new": true
                 })];
             case 1:

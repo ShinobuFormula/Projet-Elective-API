@@ -38,7 +38,8 @@ exports.getDeliveryman = async (uid:number) => {
     const deliveryman = await Deliveryman.findAll({
         where: {
             id: uid
-        }
+        },
+        attributes: { exclude: ['password'] }
     });
     return deliveryman
 }

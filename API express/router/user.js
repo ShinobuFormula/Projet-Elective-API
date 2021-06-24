@@ -35,7 +35,6 @@ router.post('/verify', function (req, res)
     else {
         res.status(401).send("Invalid Token")
     }
-
 })
 
 router.post('/create/:type', function (req, res)
@@ -47,11 +46,10 @@ router.post('/create/:type', function (req, res)
 
 router.post('/login/:type', function (req, res)
 {
-    UserController.loginUser(req.body, req.params.type).then( (token) => {
-        res.writeHead(200, {
-            "Set-Cookie": "token=" + token + "; HttpOnly",
-            "Access-Control-Allow-Credentials" : "true"
-        }).send()
+    UserController.loginUser(req.body, req.params.type).then( (data) => {
+        res.cookie("token", data.token, {
+            path: "/"
+        }).json(data.userData)
     })
 })
 

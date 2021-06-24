@@ -6,7 +6,7 @@ interface OrderModel {
     delivered : boolean,
     content: string[],
     price: number,
-    date: Date
+    date: number
 }
 
 const orderSchema = new Schema<OrderModel>({
@@ -30,7 +30,11 @@ const orderSchema = new Schema<OrderModel>({
         type :Number,
         required: true
     },
-    date: {
+    orderedAt: {
+        type: Date,
+        default: Date.now()
+    },
+    deliveredAt: {
         type: Date
     }
 })
@@ -42,12 +46,19 @@ exports.getAllOrders = async () => {
     return orders;
 }
 
+exports.getAllOrdersbyCustomer = async (cid:number) => {
+    const orders = await orderModel.find( {cid: cid});
+    return orders;
+}
+
 exports.getOneOrder = async (req:any) => {
     const order = await orderModel.findOne( {_id: req.params.id}, 'content uid price')
     return order
 }
 
-exports.createOrder = (orderData:JSON) => {
+exports.createOrder = (orderData:any) => {
+    orderData['orderedAt'] = Date.now()
+    orderData['deliveredAt'] = null
     const order = new orderModel(orderData);
     return order.save();
 };
@@ -67,7 +78,7 @@ exports.acceptOrder = async (orderID:any, UID: any) => {
 }
 
 exports.deliverOrder = async (orderID:any) => {
-    const order = await orderModel.findOneAndUpdate({_id: orderID}, {delivered: true}, {
+    const order = await orderModel.findOneAndUpdate({_id: orderID}, {delivered: true, deliveredAt: Date.now()}, {
         new: true
     });
     order.save();

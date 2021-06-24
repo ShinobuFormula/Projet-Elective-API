@@ -34,7 +34,8 @@ exports.getSalesperson = async (uid:number) => {
     const salesperson = await Salesperson.findAll({
         where: {
             id: uid
-        }
+        },
+        attributes: { exclude: ['password'] }
     });
     return salesperson
 }

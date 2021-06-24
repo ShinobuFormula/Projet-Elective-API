@@ -79,7 +79,8 @@ exports.getRestaurant = function (uid) { return __awaiter(void 0, void 0, void 0
             case 0: return [4 /*yield*/, Restaurant.findAll({
                     where: {
                         id: uid
-                    }
+                    },
+                    attributes: { exclude: ['password'] }
                 })];
             case 1:
                 restaurant = _a.sent();

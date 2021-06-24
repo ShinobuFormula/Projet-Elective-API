@@ -108,7 +108,7 @@ exports.loginUser = async (body, typeOfUser) => {
             userData = await Developer.loginDeveloper(body.email, body.password)
             break;
     }
-    return TokenController.createToken(userData[0].dataValues.id, typeOfUser)
+    return {token: TokenController.createToken(userData[0].dataValues.id, parseInt(typeOfUser)), userData : userData}
 }
 
 exports.getAllUser = async () => {

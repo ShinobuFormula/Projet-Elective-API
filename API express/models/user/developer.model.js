@@ -78,7 +78,8 @@ exports.getDeveloper = function (uid) { return __awaiter(void 0, void 0, void 0,
             case 0: return [4 /*yield*/, Developer.findAll({
                     where: {
                         id: uid
-                    }
+                    },
+                    attributes: { exclude: ['password'] }
                 })];
             case 1:
                 developer = _a.sent();

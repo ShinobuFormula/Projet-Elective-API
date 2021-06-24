@@ -82,7 +82,8 @@ exports.getDeliveryman = function (uid) { return __awaiter(void 0, void 0, void 
             case 0: return [4 /*yield*/, Deliveryman.findAll({
                     where: {
                         id: uid
-                    }
+                    },
+                    attributes: { exclude: ['password'] }
                 })];
             case 1:
                 deliveryman = _a.sent();

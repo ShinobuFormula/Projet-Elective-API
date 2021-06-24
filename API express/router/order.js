@@ -21,9 +21,10 @@ router.get('/deliver/:orderID', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 3)) {
         Order.deliverOrder(req.params.orderID)
+        res.status(201).send('you delivered a new order')
     }
     else{
-        res.status(201).send('you delivered a new order')
+        res.status(403).send('Token invalid or Unauthorized call')
     }
 })
 
@@ -31,20 +32,30 @@ router.get('/accept/:id/:userID', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 3)) {
         Order.acceptOrder(req.params.id, req.params.userID)
-    }
-    else{
         res.status(201).send('you accepted a new order')
     }
+    else{
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
+})
+
+router.get('/user/:userID', function (req, res)
+{
+        Order.getAllOrdersbyCustomer(req.params.userID).then( (orders) => {
+            res.json(orders)
+        })
 })
 
 router.post('/', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 1)) {
         Order.createOrder(req.body)
+
+        res.status(201).send('you added a new order')
     }
     else
     {
-        res.status(201).send('you added a new order')
+        res.status(403).send('Token invalid or Unauthorized call')
     }
 })
 

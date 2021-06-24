@@ -12,10 +12,14 @@ const db = require('./mongo.db')
 
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(cors({
-        credentials: true
-    }
-));
+
+var corsOptions = {
+    origin: 'http://localhost:8080',
+    credentials: true,
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
 
 app.use('/menu', menu)
 app.use('/article', article)
