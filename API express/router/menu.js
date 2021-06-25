@@ -18,6 +18,13 @@ router.get('/:id', function (req, res)
     })
 })
 
+router.get('/restaurant/:id', function (req, res)
+{
+    Menu.getAllMenusbyRestaurant(req.params.id).then( (menus) => {
+        res.json(menus)
+    })
+})
+
 router.post('/', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 2)){

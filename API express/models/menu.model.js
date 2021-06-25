@@ -78,6 +78,17 @@ exports.getOneMenu = function (req) { return __awaiter(void 0, void 0, void 0, f
         }
     });
 }); };
+exports.getAllMenusbyRestaurant = function (rid) { return __awaiter(void 0, void 0, void 0, function () {
+    var menus;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, menuModel.find({ rid: rid })];
+            case 1:
+                menus = _a.sent();
+                return [2 /*return*/, menus];
+        }
+    });
+}); };
 exports.createMenu = function (menuData) {
     var menu = new menuModel(menuData);
     return menu.save();

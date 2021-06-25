@@ -1,4 +1,5 @@
 import {model, Schema} from 'mongoose';
+import menuModel from "./menu.model";
 
 interface Article {
     name: string,
@@ -36,6 +37,11 @@ exports.getAllArticles = async () => {
 exports.getOneArticle = async (req:any) => {
     const article = await articleModel.findOne( {_id: req.params.id}, 'name prix monnaie')
     return article
+}
+
+exports.getAllArticlesbyRestaurant = async (rid:number) => {
+    const articles = await articleModel.find( {rid: rid});
+    return articles;
 }
 
 exports.createArticle = (articleData:JSON) => {

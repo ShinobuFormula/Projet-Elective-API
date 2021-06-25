@@ -78,6 +78,17 @@ exports.getOneArticle = function (req) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
+exports.getAllArticlesbyRestaurant = function (rid) { return __awaiter(void 0, void 0, void 0, function () {
+    var articles;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, articleModel.find({ rid: rid })];
+            case 1:
+                articles = _a.sent();
+                return [2 /*return*/, articles];
+        }
+    });
+}); };
 exports.createArticle = function (articleData) {
     var article = new articleModel(articleData);
     return article.save();
