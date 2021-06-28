@@ -71,7 +71,18 @@ exports.getOneArticle = function (req) { return __awaiter(void 0, void 0, void 0
     var article;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, articleModel.findOne({ _id: req.params.id }, 'name prix monnaie')];
+            case 0: return [4 /*yield*/, articleModel.findOne({ _id: req.params.id })];
+            case 1:
+                article = _a.sent();
+                return [2 /*return*/, article];
+        }
+    });
+}); };
+exports.getArticlebyId = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var article;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, articleModel.findOne({ _id: id })];
             case 1:
                 article = _a.sent();
                 return [2 /*return*/, article];

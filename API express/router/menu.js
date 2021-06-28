@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Menu = require("../models/menu.model");
+const OrderController = require('../controller/order.controller')
 const TokenController = require("../controller/token-verifier")
 
 
@@ -31,6 +32,19 @@ router.post('/', function (req, res)
         Menu.createMenu(req.body)
 
         res.status(201).send('you added a new menu')
+    }
+    else{
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
+})
+
+router.post('/cart', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 1)){
+        OrderController.fillCart(req.body).then( (data) => {
+            res.json(data)
+        })
+
     }
     else{
         res.status(403).send('Token invalid or Unauthorized call')

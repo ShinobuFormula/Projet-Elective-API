@@ -35,7 +35,11 @@ exports.getAllArticles = async () => {
 }
 
 exports.getOneArticle = async (req:any) => {
-    const article = await articleModel.findOne( {_id: req.params.id}, 'name prix monnaie')
+    const article = await articleModel.findOne( {_id: req.params.id})
+    return article
+}
+exports.getArticlebyId = async (id:any) => {
+    const article = await articleModel.findOne( {_id: id})
     return article
 }
 

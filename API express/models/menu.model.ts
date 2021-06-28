@@ -1,5 +1,4 @@
 import {Schema, model} from 'mongoose';
-import orderModel from "./order.model";
 
 interface Menu {
     name: string,
@@ -36,6 +35,11 @@ exports.getAllMenus = async () => {
 
 exports.getOneMenu = async (req:any) => {
     const menu = await menuModel.findOne( {_id: req.params.id})
+    return menu
+}
+
+exports.getMenubyId = async (id:string) => {
+    const menu = await menuModel.findOne( {_id: id})
     return menu
 }
 
