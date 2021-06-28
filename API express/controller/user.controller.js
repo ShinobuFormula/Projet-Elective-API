@@ -71,7 +71,6 @@ exports.getUser = async (uid, typeOfUser) => {
 
 exports.getAllUserByType = async (typeOfUser) => {
     let usersData
-    let userFinalData = []
     switch (parseInt(typeOfUser)){
         case 1:
             usersData = await Customer.getAllCustomer()
@@ -90,11 +89,7 @@ exports.getAllUserByType = async (typeOfUser) => {
             break;
     }
 
-    usersData.forEach( user => {
-        userFinalData[user.id] = user
-    })
-
-    return userFinalData
+    return usersData
 }
 
 exports.loginUser = async (body, typeOfUser) => {
