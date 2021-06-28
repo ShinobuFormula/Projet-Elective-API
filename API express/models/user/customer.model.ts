@@ -47,7 +47,7 @@ exports.getCustomer = async (uid:number) => {
 exports.createCustomer = async (body:JSON) => {
     const customer = await Customer.create(body);
     const response = await customer.save()
-    //return customers
+    return response
 }
 
 exports.deleteCustomer = async (uid:number) => {

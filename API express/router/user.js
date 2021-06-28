@@ -39,9 +39,11 @@ router.post('/verify', function (req, res)
 
 router.post('/create/:type', function (req, res)
 {
-    UserController.createUser(req.body, req.params.type)
+    UserController.createUser(req.body, req.params.type).then( (user) => {
+        res.status(201).json(user)
+    })
 
-    res.status(201).send('you added a new user')
+
 })
 
 router.post('/login/:type', function (req, res)

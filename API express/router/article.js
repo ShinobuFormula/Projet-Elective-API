@@ -21,8 +21,8 @@ router.get('/:id', function (req, res)
 
 router.get('/restaurant/:id', function (req, res)
 {
-    Article.getAllArticlesbyRestaurant(req.params.id).then( (menus) => {
-        res.json(menus)
+    Article.getAllArticlesbyRestaurant(req.params.id).then( (articles) => {
+        res.json(articles)
     })
 })
 

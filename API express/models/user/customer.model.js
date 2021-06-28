@@ -98,12 +98,10 @@ exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void
             case 0: return [4 /*yield*/, Customer.create(body)];
             case 1:
                 customer = _a.sent();
-                return [4 /*yield*/, customer.save()
-                    //return customers
-                ];
+                return [4 /*yield*/, customer.save()];
             case 2:
                 response = _a.sent();
-                return [2 /*return*/];
+                return [2 /*return*/, response];
         }
     });
 }); };

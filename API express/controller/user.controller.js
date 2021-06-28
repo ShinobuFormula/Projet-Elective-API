@@ -5,24 +5,26 @@ const Salesperson = require("../models/user/Salesperson.model");
 const Developer = require("../models/user/Developer.model");
 const TokenController = require("../controller/token-verifier")
 
-exports.createUser = (body, typeOfUser) => {
+exports.createUser = async (body, typeOfUser) => {
+    let userData
     switch (parseInt(typeOfUser)){
         case 1:
-            Customer.createCustomer(body)
+            userData = await Customer.createCustomer(body)
             break;
         case 2:
-            Restaurant.createRestaurant(body)
+            userData = await Restaurant.createRestaurant(body)
             break;
         case 3:
-            Deliveryman.createDeliveryman(body)
+            userData = await Deliveryman.createDeliveryman(body)
             break;
         case 4:
-            Salesperson.createSalesperson(body)
+            userData = await Salesperson.createSalesperson(body)
             break;
         case 5:
-            Developer.createDeveloper(body)
+            userData = await Developer.createDeveloper(body)
             break;
     }
+    return userData
 }
 
 exports.deleteUser = (uid, typeOfUser) => {
@@ -69,6 +71,7 @@ exports.getUser = async (uid, typeOfUser) => {
 
 exports.getAllUserByType = async (typeOfUser) => {
     let usersData
+    let userFinalData = []
     switch (parseInt(typeOfUser)){
         case 1:
             usersData = await Customer.getAllCustomer()
@@ -86,7 +89,12 @@ exports.getAllUserByType = async (typeOfUser) => {
             usersData = await Developer.getAllDeveloper()
             break;
     }
-    return usersData
+
+    usersData.forEach( user => {
+        userFinalData[user.id] = user
+    })
+
+    return userFinalData
 }
 
 exports.loginUser = async (body, typeOfUser) => {
