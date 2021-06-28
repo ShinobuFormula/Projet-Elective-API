@@ -94,12 +94,37 @@ exports.createDeveloper = function (body) { return __awaiter(void 0, void 0, voi
             case 0: return [4 /*yield*/, Developer.create(body)];
             case 1:
                 developer = _a.sent();
-                return [4 /*yield*/, developer.save()
-                    //return developers
-                ];
+                return [4 /*yield*/, developer.save()];
             case 2:
                 response = _a.sent();
-                return [2 /*return*/];
+                return [2 /*return*/, response];
+        }
+    });
+}); };
+exports.updateDeveloper = function (body, uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var developer, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Developer.findAll({
+                    where: {
+                        id: uid
+                    }
+                })];
+            case 1:
+                developer = _a.sent();
+                if (body.email) {
+                    developer[0].email = body.email;
+                }
+                if (body.firstname) {
+                    developer[0].firstname = body.firstname;
+                }
+                if (body.lastname) {
+                    developer[0].lastname = body.lastname;
+                }
+                return [4 /*yield*/, developer[0].save()];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, response];
         }
     });
 }); };

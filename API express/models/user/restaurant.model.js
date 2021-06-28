@@ -95,12 +95,37 @@ exports.createRestaurant = function (body) { return __awaiter(void 0, void 0, vo
             case 0: return [4 /*yield*/, Restaurant.create(body)];
             case 1:
                 restaurant = _a.sent();
-                return [4 /*yield*/, restaurant.save()
-                    //return restaurants
-                ];
+                return [4 /*yield*/, restaurant.save()];
             case 2:
                 response = _a.sent();
-                return [2 /*return*/];
+                return [2 /*return*/, response];
+        }
+    });
+}); };
+exports.updateRestaurant = function (body, uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Restaurant.findAll({
+                    where: {
+                        id: uid
+                    }
+                })];
+            case 1:
+                restaurant = _a.sent();
+                if (body.email) {
+                    restaurant[0].email = body.email;
+                }
+                if (body.name) {
+                    restaurant[0].name = body.name;
+                }
+                if (body.address) {
+                    restaurant[0].address = body.address;
+                }
+                return [4 /*yield*/, restaurant[0].save()];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, response];
         }
     });
 }); };

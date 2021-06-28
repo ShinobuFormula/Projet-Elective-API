@@ -105,6 +105,36 @@ exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
+exports.updateCustomer = function (body, uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var customer, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Customer.findAll({
+                    where: {
+                        id: uid
+                    }
+                })];
+            case 1:
+                customer = _a.sent();
+                if (body.email) {
+                    customer[0].email = body.email;
+                }
+                if (body.firstname) {
+                    customer[0].firstname = body.firstname;
+                }
+                if (body.lastname) {
+                    customer[0].lastname = body.lastname;
+                }
+                if (body.address) {
+                    customer[0].address = body.address;
+                }
+                return [4 /*yield*/, customer[0].save()];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, response];
+        }
+    });
+}); };
 exports.deleteCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, function () {
     var customer;
     return __generator(this, function (_a) {

@@ -27,6 +27,28 @@ exports.createUser = async (body, typeOfUser) => {
     return userData
 }
 
+exports.updateUser = async (body, typeOfUser, uid) => {
+    let updatedUser
+    switch (parseInt(typeOfUser)){
+        case 1:
+            updatedUser = await Customer.updateCustomer(body,uid)
+            break;
+        case 2:
+            updatedUser = await Restaurant.updateRestaurant(body,uid)
+            break;
+        case 3:
+            updatedUser = await Deliveryman.updateDeliveryman(body,uid)
+            break;
+        case 4:
+            updatedUser = await Salesperson.updateSalesperson(body,uid)
+            break;
+        case 5:
+            updatedUser = await Developer.updateDeveloper(body,uid)
+            break;
+    }
+    return updatedUser
+}
+
 exports.deleteUser = (uid, typeOfUser) => {
     switch (parseInt(typeOfUser)){
         case 1:

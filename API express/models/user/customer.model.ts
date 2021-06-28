@@ -50,6 +50,33 @@ exports.createCustomer = async (body:JSON) => {
     return response
 }
 
+exports.updateCustomer = async (body:any, uid:number) => {
+    const customer = await Customer.findAll({
+        where: {
+            id: uid
+        },
+    });
+    if(body.email)
+    {
+        customer[0].email = body.email
+    }
+    if(body.firstname)
+    {
+        customer[0].firstname = body.firstname
+    }
+    if(body.lastname)
+    {
+        customer[0].lastname = body.lastname
+    }
+    if(body.address)
+    {
+        customer[0].address = body.address
+    }
+    const response = await customer[0].save()
+
+    return response;
+}
+
 exports.deleteCustomer = async (uid:number) => {
     const customer = await Customer.destroy({
         where: {

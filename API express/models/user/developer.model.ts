@@ -43,7 +43,30 @@ exports.getDeveloper = async (uid:number) => {
 exports.createDeveloper = async (body:JSON) => {
     const developer = await Developer.create(body);
     const response = await developer.save()
-    //return developers
+    return response
+}
+
+exports.updateDeveloper = async (body:any, uid:number) => {
+    const developer = await Developer.findAll({
+        where: {
+            id: uid
+        },
+    });
+    if(body.email)
+    {
+        developer[0].email = body.email
+    }
+    if(body.firstname)
+    {
+        developer[0].firstname = body.firstname
+    }
+    if(body.lastname)
+    {
+        developer[0].lastname = body.lastname
+    }
+    const response = await developer[0].save()
+
+    return response;
 }
 
 exports.deleteDeveloper = async (uid:number) => {

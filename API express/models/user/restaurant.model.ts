@@ -44,7 +44,30 @@ exports.getRestaurant = async (uid:number) => {
 exports.createRestaurant = async (body:JSON) => {
     const restaurant = await Restaurant.create(body);
     const response = await restaurant.save()
-    //return restaurants
+    return response
+}
+
+exports.updateRestaurant = async (body:any, uid:number) => {
+    const restaurant = await Restaurant.findAll({
+        where: {
+            id: uid
+        },
+    });
+    if(body.email)
+    {
+        restaurant[0].email = body.email
+    }
+    if(body.name)
+    {
+        restaurant[0].name = body.name
+    }
+    if(body.address)
+    {
+        restaurant[0].address = body.address
+    }
+    const response = await restaurant[0].save()
+
+    return response;
 }
 
 exports.deleteRestaurant = async (uid:number) => {

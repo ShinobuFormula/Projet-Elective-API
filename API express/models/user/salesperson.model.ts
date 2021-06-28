@@ -43,7 +43,34 @@ exports.getSalesperson = async (uid:number) => {
 exports.createSalesperson = async (body:JSON) => {
     const salesperson = await Salesperson.create(body);
     const response = await salesperson.save()
-    //return salespersons
+    return response
+}
+
+exports.updateSalesperson = async (body:any, uid:number) => {
+    const salesperson = await Salesperson.findAll({
+        where: {
+            id: uid
+        },
+    });
+    if(body.email)
+    {
+        salesperson[0].email = body.email
+    }
+    if(body.firstname)
+    {
+        salesperson[0].firstname = body.firstname
+    }
+    if(body.lastname)
+    {
+        salesperson[0].lastname = body.lastname
+    }
+    if(body.IBAN)
+    {
+        salesperson[0].IBAN = body.IBAN
+    }
+    const response = await salesperson[0].save()
+
+    return response;
 }
 
 exports.deleteSalesperson = async (uid:number) => {

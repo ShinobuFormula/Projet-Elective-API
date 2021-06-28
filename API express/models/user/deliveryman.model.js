@@ -98,12 +98,40 @@ exports.createDeliveryman = function (body) { return __awaiter(void 0, void 0, v
             case 0: return [4 /*yield*/, Deliveryman.create(body)];
             case 1:
                 deliveryman = _a.sent();
-                return [4 /*yield*/, deliveryman.save()
-                    //return deliverymans
-                ];
+                return [4 /*yield*/, deliveryman.save()];
             case 2:
                 response = _a.sent();
-                return [2 /*return*/];
+                return [2 /*return*/, response];
+        }
+    });
+}); };
+exports.updateDeliveryman = function (body, uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var deliveryman, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Deliveryman.findAll({
+                    where: {
+                        id: uid
+                    }
+                })];
+            case 1:
+                deliveryman = _a.sent();
+                if (body.email) {
+                    deliveryman[0].email = body.email;
+                }
+                if (body.firstname) {
+                    deliveryman[0].firstname = body.firstname;
+                }
+                if (body.lastname) {
+                    deliveryman[0].lastname = body.lastname;
+                }
+                if (body.IBAN) {
+                    deliveryman[0].IBAN = body.IBAN;
+                }
+                return [4 /*yield*/, deliveryman[0].save()];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, response];
         }
     });
 }); };

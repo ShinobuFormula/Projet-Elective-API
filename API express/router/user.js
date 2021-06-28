@@ -42,8 +42,13 @@ router.post('/create/:type', function (req, res)
     UserController.createUser(req.body, req.params.type).then( (user) => {
         res.status(201).json(user)
     })
+})
 
-
+router.put('/:type/:id', function (req, res)
+{
+    UserController.updateUser(req.body, req.params.type ,req.params.id).then( (user) => {
+        res.status(200).json(user)
+    })
 })
 
 router.post('/login/:type', function (req, res)

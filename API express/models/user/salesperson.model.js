@@ -94,12 +94,40 @@ exports.createSalesperson = function (body) { return __awaiter(void 0, void 0, v
             case 0: return [4 /*yield*/, Salesperson.create(body)];
             case 1:
                 salesperson = _a.sent();
-                return [4 /*yield*/, salesperson.save()
-                    //return salespersons
-                ];
+                return [4 /*yield*/, salesperson.save()];
             case 2:
                 response = _a.sent();
-                return [2 /*return*/];
+                return [2 /*return*/, response];
+        }
+    });
+}); };
+exports.updateSalesperson = function (body, uid) { return __awaiter(void 0, void 0, void 0, function () {
+    var salesperson, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Salesperson.findAll({
+                    where: {
+                        id: uid
+                    }
+                })];
+            case 1:
+                salesperson = _a.sent();
+                if (body.email) {
+                    salesperson[0].email = body.email;
+                }
+                if (body.firstname) {
+                    salesperson[0].firstname = body.firstname;
+                }
+                if (body.lastname) {
+                    salesperson[0].lastname = body.lastname;
+                }
+                if (body.IBAN) {
+                    salesperson[0].IBAN = body.IBAN;
+                }
+                return [4 /*yield*/, salesperson[0].save()];
+            case 2:
+                response = _a.sent();
+                return [2 /*return*/, response];
         }
     });
 }); };
