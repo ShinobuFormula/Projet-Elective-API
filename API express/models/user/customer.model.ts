@@ -44,6 +44,16 @@ exports.getCustomer = async (uid:number) => {
     return customer
 }
 
+exports.getCustomerbyEmail = async (email:string) => {
+    const customer = await Customer.findAll({
+        where: {
+            email: email
+        },
+        attributes: { exclude: ['password'] }
+    });
+    return customer
+}
+
 exports.createCustomer = async (body:JSON) => {
     const customer = await Customer.create(body);
     const response = await customer.save()

@@ -3,9 +3,10 @@ const Restaurant = require("../models/user/Restaurant.model");
 const Deliveryman = require("../models/user/Deliveryman.model");
 const Salesperson = require("../models/user/Salesperson.model");
 const Developer = require("../models/user/Developer.model");
+const Sponsorship = require("../models/user/Sponsorship.model");
 const TokenController = require("../controller/token-verifier")
 
-exports.createUser = async (body, typeOfUser) => {
+exports.createUser = async (body, typeOfUser, sponsor) => {
     let userData
     switch (parseInt(typeOfUser)){
         case 1:
@@ -24,6 +25,10 @@ exports.createUser = async (body, typeOfUser) => {
             userData = await Developer.createDeveloper(body)
             break;
     }
+    if(sponsor !== null){
+        await sponsorUser(sponsor, userData.id, typeOfUser)
+    }
+
     return userData
 }
 
@@ -89,6 +94,22 @@ exports.getUser = async (uid, typeOfUser) => {
             break;
     }
     return userData[0].dataValues
+}
+
+exports.getUserbyEmail = async (uid, typeOfUser) => {
+    let userData
+    switch (parseInt(typeOfUser)){
+        case 1:
+            userData = await Customer.getCustomerbyEmail(uid)
+            break;
+        case 2:
+            userData = await Restaurant.getRestaurantbyEmail(uid)
+            break;
+        case 3:
+            userData = await Deliveryman.getDeliverymanbyEmail(uid)
+            break;
+    }
+    return userData
 }
 
 exports.getAllUserByType = async (typeOfUser) => {
@@ -162,4 +183,13 @@ exports.getAllUser = async () => {
     })
 
     return usersData
+}
+
+ async function sponsorUser(sponsor, sponsored, role){
+    let data = {
+        sponsor: sponsor,
+        sponsored: sponsored,
+        status: role
+    }
+    return response = await Sponsorship.createSponsorship(data)
 }

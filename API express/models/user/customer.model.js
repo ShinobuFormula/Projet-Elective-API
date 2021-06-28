@@ -91,6 +91,22 @@ exports.getCustomer = function (uid) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
+exports.getCustomerbyEmail = function (email) { return __awaiter(void 0, void 0, void 0, function () {
+    var customer;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Customer.findAll({
+                    where: {
+                        email: email
+                    },
+                    attributes: { exclude: ['password'] }
+                })];
+            case 1:
+                customer = _a.sent();
+                return [2 /*return*/, customer];
+        }
+    });
+}); };
 exports.createCustomer = function (body) { return __awaiter(void 0, void 0, void 0, function () {
     var customer, response;
     return __generator(this, function (_a) {

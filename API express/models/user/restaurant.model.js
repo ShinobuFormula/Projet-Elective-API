@@ -88,6 +88,22 @@ exports.getRestaurant = function (uid) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
+exports.getRestaurantbyEmail = function (email) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Restaurant.findAll({
+                    where: {
+                        email: email
+                    },
+                    attributes: { exclude: ['password'] }
+                })];
+            case 1:
+                restaurant = _a.sent();
+                return [2 /*return*/, restaurant];
+        }
+    });
+}); };
 exports.createRestaurant = function (body) { return __awaiter(void 0, void 0, void 0, function () {
     var restaurant, response;
     return __generator(this, function (_a) {

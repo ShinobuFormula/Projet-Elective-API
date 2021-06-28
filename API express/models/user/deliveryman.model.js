@@ -91,6 +91,22 @@ exports.getDeliveryman = function (uid) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
+exports.getDeliverymanbyEmail = function (email) { return __awaiter(void 0, void 0, void 0, function () {
+    var deliveryman;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Deliveryman.findAll({
+                    where: {
+                        email: email
+                    },
+                    attributes: { exclude: ['password'] }
+                })];
+            case 1:
+                deliveryman = _a.sent();
+                return [2 /*return*/, deliveryman];
+        }
+    });
+}); };
 exports.createDeliveryman = function (body) { return __awaiter(void 0, void 0, void 0, function () {
     var deliveryman, response;
     return __generator(this, function (_a) {

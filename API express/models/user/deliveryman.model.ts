@@ -44,6 +44,16 @@ exports.getDeliveryman = async (uid:number) => {
     return deliveryman
 }
 
+exports.getDeliverymanbyEmail = async (email:string) => {
+    const deliveryman = await Deliveryman.findAll({
+        where: {
+            email: email
+        },
+        attributes: { exclude: ['password'] }
+    });
+    return deliveryman
+}
+
 exports.createDeliveryman = async (body:JSON) => {
     const deliveryman = await Deliveryman.create(body);
     const response = await deliveryman.save()

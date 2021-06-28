@@ -41,6 +41,16 @@ exports.getRestaurant = async (uid:number) => {
     return restaurant
 }
 
+exports.getRestaurantbyEmail = async (email:string) => {
+    const restaurant = await Restaurant.findAll({
+        where: {
+            email: email
+        },
+        attributes: { exclude: ['password'] }
+    });
+    return restaurant
+}
+
 exports.createRestaurant = async (body:JSON) => {
     const restaurant = await Restaurant.create(body);
     const response = await restaurant.save()

@@ -25,6 +25,13 @@ router.get('/:type/:id', function (req, res)
     })
 })
 
+router.get('/email/:type/:id', function (req, res)
+{
+    UserController.getUserbyEmail(req.params.id, req.params.type).then( (userData) => {
+        res.json(userData)
+    })
+})
+
 router.post('/verify', function (req, res)
 {
     const verifiedData = TokenController.verifyTokenLogin(req.cookies)
@@ -39,7 +46,14 @@ router.post('/verify', function (req, res)
 
 router.post('/create/:type', function (req, res)
 {
-    UserController.createUser(req.body, req.params.type).then( (user) => {
+    UserController.createUser(req.body, req.params.type, null).then( (user) => {
+        res.status(201).json(user)
+    })
+})
+
+router.post('/create/:type/:sponsor', function (req, res)
+{
+    UserController.createUser(req.body, req.params.type, req.params.sponsor).then( (user) => {
         res.status(201).json(user)
     })
 })
