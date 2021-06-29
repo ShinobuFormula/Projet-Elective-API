@@ -4,6 +4,8 @@ const Deliveryman = require("../models/user/Deliveryman.model");
 const Salesperson = require("../models/user/Salesperson.model");
 const Developer = require("../models/user/Developer.model");
 const Sponsorship = require("../models/user/Sponsorship.model");
+const Log = require("../models/user/log.model");
+
 const TokenController = require("../controller/token-verifier")
 
 exports.createUser = async (body, typeOfUser, sponsor) => {
@@ -72,6 +74,11 @@ exports.deleteUser = (uid, typeOfUser) => {
             Developer.deleteDeveloper(uid)
             break;
     }
+}
+
+exports.deleteLog = async (lid) => {
+    let response = await Log.deleteLog(lid)
+    return response
 }
 
 exports.getUser = async (uid, typeOfUser) => {
@@ -154,6 +161,7 @@ exports.loginUser = async (body, typeOfUser) => {
             userData = await Developer.loginDeveloper(body.email, body.password)
             break;
     }
+    Log.createLog({userID:userData[0].dataValues.id, role:typeOfUser})
     return {token: TokenController.createToken(userData[0].dataValues.id, parseInt(typeOfUser)), userData : userData}
 }
 

@@ -74,11 +74,25 @@ router.post('/login/:type', function (req, res)
     })
 })
 
+router.delete('/log/:id', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 5)) {
+        UserController.deleteLog(req.params.id)
+        res.status(200).send('you deleted a log')
+    }
+    else
+    {
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
+})
+
 router.delete('/:type/:id', function (req, res)
 {
     UserController.deleteUser(req.params.id, req.params.type)
 
     res.status(200).send('you deleted a user')
 })
+
+
 
 module.exports = router;

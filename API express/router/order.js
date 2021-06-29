@@ -52,8 +52,6 @@ router.post('/', function (req, res)
         Order.createOrder(req.body).then( (data) => {
             res.json(data)
         })
-
-
     }
     else
     {

@@ -1,3 +1,5 @@
+import {logger} from "sequelize/types/lib/utils/logger";
+
 const { Model, DataTypes } = require('sequelize');
 import sequelize from '../../mysql.db';
 
@@ -8,7 +10,7 @@ const Log = sequelize.define('Log', {
         allowNull: false
     },
     connectedAt: {
-        type: Date,
+        type: DataTypes.DATE,
         default: Date.now()
     },
     role: {
@@ -22,8 +24,18 @@ const Log = sequelize.define('Log', {
     timestamps: false
 });
 
-exports.createLog = async (body:JSON) => {
-    const log = await Log.create(body);
+exports.createLog = async (logData:any) => {
+    logData['connectedAt'] = Date.now()
+    const log = await Log.create(logData);
     const response = await log.save()
     return response
+}
+
+exports.deleteLog = async (lid:number) => {
+    const log = await Log.destroy({
+        where: {
+            id: lid
+        }
+    });
+    return log
 }
