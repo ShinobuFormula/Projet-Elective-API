@@ -103,17 +103,17 @@ exports.getUser = async (uid, typeOfUser) => {
     return userData[0].dataValues
 }
 
-exports.getUserbyEmail = async (uid, typeOfUser) => {
+exports.getUserbyEmail = async (email, typeOfUser) => {
     let userData
     switch (parseInt(typeOfUser)){
         case 1:
-            userData = await Customer.getCustomerbyEmail(uid)
+            userData = await Customer.getCustomerbyEmail(email)
             break;
         case 2:
-            userData = await Restaurant.getRestaurantbyEmail(uid)
+            userData = await Restaurant.getRestaurantbyEmail(email)
             break;
         case 3:
-            userData = await Deliveryman.getDeliverymanbyEmail(uid)
+            userData = await Deliveryman.getDeliverymanbyEmail(email)
             break;
     }
     return userData

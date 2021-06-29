@@ -25,9 +25,9 @@ router.get('/:type/:id', function (req, res)
     })
 })
 
-router.get('/email/:type/:id', function (req, res)
+router.get('/email/:type/:email', function (req, res)
 {
-    UserController.getUserbyEmail(req.params.id, req.params.type).then( (userData) => {
+    UserController.getUserbyEmail(req.params.email, req.params.type).then( (userData) => {
         res.json(userData)
     })
 })
