@@ -53,6 +53,11 @@ exports.getAllOrdersbyCustomer = async (cid:number) => {
     return orders;
 }
 
+exports.getAllOrdersbyDeliveryman = async (did:number) => {
+    const orders = await orderModel.find( {did: did});
+    return orders;
+}
+
 exports.getOneOrder = async (req:any) => {
     const order = await orderModel.findOne( {_id: req.params.id})
     return order
