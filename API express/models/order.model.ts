@@ -16,11 +16,13 @@ const orderSchema = new Schema<OrderModel>({
     },
     did: {
         type :Number,
-        required: true
+        required: false,
+        default: 0
     },
     delivered: {
         type :Boolean,
-        required: true
+        required: false,
+        default: false
     },
     content: {
         type :Array,
