@@ -106,3 +106,8 @@ exports.loginCustomer = async (email:string, password:string) => {
     });
     return customer
 }
+
+exports.getCustomerCount = async () => {
+    const count = await Customer.count()
+    return count
+}

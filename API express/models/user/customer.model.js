@@ -183,3 +183,14 @@ exports.loginCustomer = function (email, password) { return __awaiter(void 0, vo
         }
     });
 }); };
+exports.getCustomerCount = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var count;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Customer.count()];
+            case 1:
+                count = _a.sent();
+                return [2 /*return*/, count];
+        }
+    });
+}); };

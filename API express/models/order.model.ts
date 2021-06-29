@@ -54,7 +54,7 @@ exports.getAllOrdersbyCustomer = async (cid:number) => {
 }
 
 exports.getOneOrder = async (req:any) => {
-    const order = await orderModel.findOne( {_id: req.params.id}, 'content uid price')
+    const order = await orderModel.findOne( {_id: req.params.id})
     return order
 }
 
@@ -73,6 +73,7 @@ exports.updateOneOrder = async (req:any) => {
         new: true
     });
     order.save();
+    return order
 }
 
 exports.acceptOrder = async (orderID:any, UID: any) => {
@@ -80,6 +81,7 @@ exports.acceptOrder = async (orderID:any, UID: any) => {
         new: true
     });
     order.save();
+    return order
 }
 
 exports.deliverOrder = async (orderID:any) => {
@@ -87,12 +89,31 @@ exports.deliverOrder = async (orderID:any) => {
         new: true
     });
     order.save();
+    return order
 }
 
-exports.deleteOrder = (orderID:any) => {
-    orderModel.deleteOne({_id:orderID}, function (err){
-        if (err) return console.log(err)
-    })
+exports.deleteOrder = async (orderID:any) => {
+    const order = await orderModel.deleteOne({_id:orderID})
+    return order
 };
+
+exports.getOrderCount = async () => {
+    const count = await orderModel.countDocuments()
+    return count
+}
+
+exports.getOrderTotalPrice = async () => {
+    const total = await orderModel.aggregate([{
+        $group: {
+            _id: '',
+            totalAmount: { $sum: '$price' }
+        }
+    }, {
+        $project: {
+            _id: 0
+        }
+    }])
+    return total[0].totalAmount
+}
 
 export default orderModel;

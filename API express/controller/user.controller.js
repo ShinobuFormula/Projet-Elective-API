@@ -4,6 +4,7 @@ const Deliveryman = require("../models/user/Deliveryman.model");
 const Salesperson = require("../models/user/Salesperson.model");
 const Developer = require("../models/user/Developer.model");
 const Sponsorship = require("../models/user/Sponsorship.model");
+const Order =  require("../models/order.model");
 const Log = require("../models/user/log.model");
 
 const TokenController = require("../controller/token-verifier")
@@ -191,6 +192,22 @@ exports.getAllUser = async () => {
     })
 
     return usersData
+}
+
+exports.getStats = async () => {
+    const orderCount = await Order.getOrderCount()
+    const totalPrice = await Order.getOrderTotalPrice()
+    const customerCount = await Customer.getCustomerCount()
+    const restaurantCount = await Restaurant.getRestaurantCount()
+
+    let payload = {
+        orderCount: orderCount,
+        totalPrice: totalPrice,
+        customerCount: customerCount,
+        restaurantCount: restaurantCount
+    }
+
+    return payload
 }
 
  async function sponsorUser(sponsor, sponsored, role){

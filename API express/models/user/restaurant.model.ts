@@ -99,3 +99,8 @@ exports.loginRestaurant = async (email:string, password:string) => {
     });
     return restaurant
 }
+
+exports.getRestaurantCount = async () => {
+    const count = await Restaurant.count()
+    return count
+}

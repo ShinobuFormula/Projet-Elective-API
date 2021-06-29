@@ -95,7 +95,7 @@ exports.getOneOrder = function (req) { return __awaiter(void 0, void 0, void 0, 
     var order;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, orderModel.findOne({ _id: req.params.id }, 'content uid price')];
+            case 0: return [4 /*yield*/, orderModel.findOne({ _id: req.params.id })];
             case 1:
                 order = _a.sent();
                 return [2 /*return*/, order];
@@ -120,7 +120,7 @@ exports.updateOneOrder = function (req) { return __awaiter(void 0, void 0, void 
             case 1:
                 order = _a.sent();
                 order.save();
-                return [2 /*return*/];
+                return [2 /*return*/, order];
         }
     });
 }); };
@@ -134,7 +134,7 @@ exports.acceptOrder = function (orderID, UID) { return __awaiter(void 0, void 0,
             case 1:
                 order = _a.sent();
                 order.save();
-                return [2 /*return*/];
+                return [2 /*return*/, order];
         }
     });
 }); };
@@ -148,14 +148,50 @@ exports.deliverOrder = function (orderID) { return __awaiter(void 0, void 0, voi
             case 1:
                 order = _a.sent();
                 order.save();
-                return [2 /*return*/];
+                return [2 /*return*/, order];
         }
     });
 }); };
-exports.deleteOrder = function (orderID) {
-    orderModel.deleteOne({ _id: orderID }, function (err) {
-        if (err)
-            return console.log(err);
+exports.deleteOrder = function (orderID) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.deleteOne({ _id: orderID })];
+            case 1:
+                order = _a.sent();
+                return [2 /*return*/, order];
+        }
     });
-};
+}); };
+exports.getOrderCount = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var count;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.countDocuments()];
+            case 1:
+                count = _a.sent();
+                return [2 /*return*/, count];
+        }
+    });
+}); };
+exports.getOrderTotalPrice = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var total;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orderModel.aggregate([{
+                        $group: {
+                            _id: '',
+                            totalAmount: { $sum: '$price' }
+                        }
+                    }, {
+                        $project: {
+                            _id: 0
+                        }
+                    }])];
+            case 1:
+                total = _a.sent();
+                return [2 /*return*/, total[0].totalAmount];
+        }
+    });
+}); };
 exports["default"] = orderModel;

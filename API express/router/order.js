@@ -75,9 +75,10 @@ router.delete('/:id', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 1)) {
         Order.deleteOrder(req.params.id)
+        res.status(201).send('you deleted an order')
     }
     else{
-        res.status(201).send('you deleted an order')
+        res.status(403).send('Token invalid or Unauthorized call')
     }
 })
 

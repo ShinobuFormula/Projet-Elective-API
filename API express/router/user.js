@@ -3,6 +3,23 @@ const router = express.Router()
 const UserController = require("../controller/user.controller")
 const TokenController = require("../controller/token-verifier")
 
+router.get('/stat', function (req, res)
+{
+    if(TokenController.verifyToken(req.cookies, 5)) {
+        UserController.getStats(req.params.id).then( (data) => {
+            res.json(data)
+        })
+    }
+    else if (TokenController.verifyToken(req.cookies, 4)) {
+        UserController.getStats(req.params.id).then( (data) => {
+            res.json(data)
+        })
+    }
+    else
+    {
+        res.status(403).send('Token invalid or Unauthorized call')
+    }
+})
 
 router.get('/', function (req, res)
 {
