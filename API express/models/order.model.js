@@ -44,11 +44,13 @@ var orderSchema = new mongoose_1.Schema({
     },
     did: {
         type: Number,
-        required: true
+        required: false,
+        "default": 0
     },
     delivered: {
         type: Boolean,
-        required: true
+        required: false,
+        "default": false
     },
     content: {
         type: Array,
@@ -103,6 +105,8 @@ exports.getOneOrder = function (req) { return __awaiter(void 0, void 0, void 0, 
 exports.createOrder = function (orderData) {
     orderData['orderedAt'] = Date.now();
     orderData['deliveredAt'] = null;
+    orderData['did'] = 0;
+    orderData['delivered'] = false;
     var order = new orderModel(orderData);
     return order.save();
 };

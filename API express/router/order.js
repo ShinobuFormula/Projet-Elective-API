@@ -49,9 +49,11 @@ router.get('/user/:userID', function (req, res)
 router.post('/', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 1)) {
-        Order.createOrder(req.body)
+        Order.createOrder(req.body).then( (data) => {
+            res.json(data)
+        })
 
-        res.status(201).send('you added a new order')
+
     }
     else
     {
