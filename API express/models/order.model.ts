@@ -61,6 +61,9 @@ exports.getOneOrder = async (req:any) => {
 exports.createOrder = (orderData:any) => {
     orderData['orderedAt'] = Date.now()
     orderData['deliveredAt'] = null
+    orderData['did'] = 0
+    orderData['delivered'] = false
+
     const order = new orderModel(orderData);
     return order.save();
 };
