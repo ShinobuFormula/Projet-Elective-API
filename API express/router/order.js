@@ -46,6 +46,13 @@ router.get('/user/:userID', function (req, res)
         })
 })
 
+router.get('/deliveryman/:userID', function (req, res)
+{
+    Order.getAllOrdersbyDeliveryman(req.params.userID).then( (orders) => {
+        res.json(orders)
+    })
+})
+
 router.post('/', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 1)) {

@@ -57,6 +57,17 @@ var Log = mysql_db_1["default"].define('Log', {
     tableName: 'log',
     timestamps: false
 });
+exports.getAllLog = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var logs;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Log.findAll()];
+            case 1:
+                logs = _a.sent();
+                return [2 /*return*/, logs];
+        }
+    });
+}); };
 exports.createLog = function (logData) { return __awaiter(void 0, void 0, void 0, function () {
     var log, response;
     return __generator(this, function (_a) {

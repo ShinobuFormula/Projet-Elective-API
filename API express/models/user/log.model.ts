@@ -24,6 +24,11 @@ const Log = sequelize.define('Log', {
     timestamps: false
 });
 
+exports.getAllLog = async () => {
+    const logs = await Log.findAll();
+    return logs
+}
+
 exports.createLog = async (logData:any) => {
     logData['connectedAt'] = Date.now()
     const log = await Log.create(logData);

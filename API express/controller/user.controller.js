@@ -6,8 +6,8 @@ const Developer = require("../models/user/Developer.model");
 const Sponsorship = require("../models/user/Sponsorship.model");
 const Order =  require("../models/order.model");
 const Log = require("../models/user/log.model");
-
 const TokenController = require("../controller/token-verifier")
+const Thirdparty = require("../models/user/thirdparty.model");
 
 exports.createUser = async (body, typeOfUser, sponsor) => {
     let userData
@@ -26,6 +26,9 @@ exports.createUser = async (body, typeOfUser, sponsor) => {
             break;
         case 5:
             userData = await Developer.createDeveloper(body)
+            break;
+        case 6:
+            userData = await Thirdparty.createThirdparty(body)
             break;
     }
     if(sponsor !== null){
@@ -75,6 +78,11 @@ exports.deleteUser = (uid, typeOfUser) => {
             Developer.deleteDeveloper(uid)
             break;
     }
+}
+
+exports.getAllLog = async () => {
+    let response = await Log.getAllLog()
+    return response
 }
 
 exports.deleteLog = async (lid) => {
@@ -208,6 +216,10 @@ exports.getStats = async () => {
     }
 
     return payload
+}
+
+exports.createThirdPartyUser = async () => {
+
 }
 
  async function sponsorUser(sponsor, sponsored, role){

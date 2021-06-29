@@ -21,6 +21,13 @@ router.get('/stat', function (req, res)
     }
 })
 
+router.get('/log', function (req, res)
+{
+    UserController.getAllLog().then( (logData) => {
+        res.json(logData)
+    })
+})
+
 router.get('/', function (req, res)
 {
     UserController.getAllUser().then( (userData) => {
