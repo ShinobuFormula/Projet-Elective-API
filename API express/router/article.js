@@ -42,7 +42,7 @@ router.put('/:id', function (req, res)
     if(TokenController.verifyToken(req.cookies, 2)){
         Article.updateOneArticle(req)
 
-        res.status(201).send('you updated an article')
+        res.status(200).send('you updated an article')
     }
     else{
         res.status(403).send('Token invalid or Unauthorized call')
