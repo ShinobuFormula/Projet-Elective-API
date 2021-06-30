@@ -113,12 +113,19 @@ exports.updateOneMenu = function (req) { return __awaiter(void 0, void 0, void 0
                 })];
             case 1:
                 menu = _a.sent();
-                menu.save();
-                return [2 /*return*/];
+                return [2 /*return*/, menu.save()];
         }
     });
 }); };
-exports.deleteMenu = function (menuID) {
-    menuModel.deleteOne({ _id: menuID });
-};
+exports.deleteMenu = function (menuID) { return __awaiter(void 0, void 0, void 0, function () {
+    var menu;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, menuModel.deleteOne({ _id: menuID })];
+            case 1:
+                menu = _a.sent();
+                return [2 /*return*/, menu];
+        }
+    });
+}); };
 exports["default"] = menuModel;

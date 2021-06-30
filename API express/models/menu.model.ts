@@ -57,11 +57,12 @@ exports.updateOneMenu = async (req:any) => {
     const menu = await menuModel.findOneAndUpdate({_id: req.params.id}, req.body, {
         new: true
     });
-    menu.save();
+    return menu.save();
 }
 
-exports.deleteMenu = (menuID:any) => {
-    menuModel.deleteOne({_id:menuID})
+exports.deleteMenu = async (menuID:any) => {
+    const menu = await menuModel.deleteOne({_id:menuID})
+    return menu
 };
 
 export default menuModel;
