@@ -30,9 +30,10 @@ router.post('/', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 2)) {
         Article.createArticle(req.body)
+        res.status(201).send('you added a new article')
     }
     else{
-        res.status(201).send('you added a new article')
+        res.status(403).send('Token invalid or Unauthorized call')
     }
 })
 
@@ -52,9 +53,10 @@ router.delete('/:id', function (req, res)
 {
     if(TokenController.verifyToken(req.cookies, 2)) {
         Article.deleteArticle(req.params.id)
+        res.status(200).send('you deleted an article')
     }
     else{
-        res.status(201).send('you deleted an article')
+        res.status(403).send('Token invalid or Unauthorized call')
     }
 })
 
